@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> Chat</title>
+  <style>
+.History {
+  background: #EBFFFF;
+  border: 2px dashed black;
+  padding: 20px;
+
+}
+  </style>
+
+  <script>
+
+    function sendMessage() {
+      console.log("Message sent");
+      var message = document.getElementById("message").value;
+      // document.getElementById("history").innerHTML = "something";
+      document.getElementById("history").innerHTML += "<br/>" + message;
+    }
+  </script>
+
+</head>
+<body>
+<div class="History" id="history">здесь будет история </div>
+<textarea rows="2" cols="80" id="message"></textarea>
+<input value="Отправить" type="button" onclick="sendMessage()"></input>
+
+
+</body>
+
+
+
+
+
+</html>
