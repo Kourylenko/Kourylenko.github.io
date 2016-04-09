@@ -8,25 +8,66 @@
   background: #EBFFFF;
   border: 2px dashed black;
   padding: 20px;
-
+}
+.divClass {
+  animation: fromTop 0.5s;
+}
+@keyframes fromTop {
+  0% {
+    top:-1em;
+  }
+  100% {
+    top:0em;
+  }
+}
+@-moz-keyframes fromTop {
+  0% {
+    top:-1em;
+  }
+  100% {
+    top:0em;
+  }
 }
   </style>
 
   <script>
-
+    function getE(query, element) {
+      var selector = query.charAt(0);
+      var name = query.slice(1);
+      var parent = element || document;
+      if (selector == '#'){
+        return document.getElementById(name);
+      } else if (selector == '.') {
+        return parent.getElementsByClassName(name);
+      } else {
+        return parent.getElementsByTagName(name);
+      }
+    }
     function sendMessage() {
       console.log("Message sent");
-      var message = document.getElementById("message").value;
+      var message = getE("#message").value;
       // document.getElementById("history").innerHTML = "something";
-      document.getElementById("history").innerHTML += "<br/>" + message;
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(message));
+      div.className = 'divClass';
+      getE("#history").appendChild(div);
+      getE("#message").value = "";
+      //document.getElementById("history").innerHTML += "<br/>" + message;
     }
+    console.log(document.getElementById('sendMessageButton'));
+    console.log(getE('#sendMessageButton'));
+    getE('#sendMessageButton').addEventListener('click',sendMessage);
+    getE('#sendMessageButton').addEventListener('keydown',function(e){
+      if(e.keycode == 13)
+        sendMessage();
+    });
   </script>
 
 </head>
 <body>
 <div class="History" id="history">здесь будет история </div>
 <textarea rows="2" cols="80" id="message"></textarea>
-<input value="Отправить" type="button" onclick="sendMessage()"></input>
+<input value="Отправить" type="button" id="sendMessageButton" />
 
 
 </body>
